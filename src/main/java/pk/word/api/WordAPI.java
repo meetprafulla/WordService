@@ -26,30 +26,34 @@ public class WordAPI {
 		return ResponseEntity.status(HttpStatus.OK).body(wordLight);
 	}
 
-	/*
-	 * @GetMapping("/{wordText}/synonyms") public ResponseEntity<WordLight>
-	 * findSynonymsForWord(@PathVariable String wordText) { WordLight wordLight =
-	 * wordService.fetchWordByText(wordText); return
-	 * ResponseEntity.status(HttpStatus.OK).body(wordLight); }
-	 * 
-	 * @GetMapping("/{wordText}/antonyms") public ResponseEntity<WordLight>
-	 * findAntonymsForWord(@PathVariable String wordText) { WordLight wordLight =
-	 * wordService.fetchWordByText(wordText); return
-	 * ResponseEntity.status(HttpStatus.OK).body(wordLight); }
-	 * 
-	 * @GetMapping("/{wordText}/sentences") public ResponseEntity<WordLight>
-	 * findSentencesForWord(@PathVariable String wordText) { WordLight wordLight =
-	 * wordService.fetchWordByText(wordText); return
-	 * ResponseEntity.status(HttpStatus.OK).body(wordLight); }
-	 * 
-	 * @GetMapping("/{wordText}/type") public ResponseEntity<WordLight>
-	 * findWordTypeForWord(@PathVariable String wordText) { WordLight wordLight =
-	 * wordService.fetchWordByText(wordText); return
-	 * ResponseEntity.status(HttpStatus.OK).body(wordLight); }
-	 * 
-	 * @GetMapping("/topwords/{searchTerm}") public ResponseEntity<List<WordLight>>
-	 * fetchTopWords(@PathVariable String searchTerm) { List<WordLight>
-	 * wordLightList = wordService.fetchWordHavingText(searchTerm); return
-	 * ResponseEntity.status(HttpStatus.OK).body(wordLightList); }
-	 */
+	@GetMapping("/synonyms/{wordText}")
+	public ResponseEntity<List<WordLight>> findSynonymsForWord(@PathVariable String wordText) {
+		List<WordLight> wordLight = wordService.fetchAllSynonymsForWord(wordText);
+		return ResponseEntity.status(HttpStatus.OK).body(wordLight);
+	}
+
+	@GetMapping("/antonyms/{wordText}")
+	public ResponseEntity<WordLight> findAntonymsForWord(@PathVariable String wordText) {
+		WordLight wordLight = wordService.fetchWordByText(wordText);
+		return ResponseEntity.status(HttpStatus.OK).body(wordLight);
+	}
+
+	@GetMapping("/sentences/{wordText}")
+	public ResponseEntity<WordLight> findSentencesForWord(@PathVariable String wordText) {
+		WordLight wordLight = wordService.fetchWordByText(wordText);
+		return ResponseEntity.status(HttpStatus.OK).body(wordLight);
+	}
+
+	@GetMapping("/type/{wordText}")
+	public ResponseEntity<WordLight> findWordTypeForWord(@PathVariable String wordText) {
+		WordLight wordLight = wordService.fetchWordByText(wordText);
+		return ResponseEntity.status(HttpStatus.OK).body(wordLight);
+	}
+
+	@GetMapping("/topwords/{searchTerm}")
+	public ResponseEntity<List<WordLight>> fetchTopWords(@PathVariable String searchTerm) {
+		List<WordLight> wordLightList = wordService.fetchWordHavingText(searchTerm);
+		return ResponseEntity.status(HttpStatus.OK).body(wordLightList);
+	}
+
 }

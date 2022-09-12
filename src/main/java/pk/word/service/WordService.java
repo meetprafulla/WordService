@@ -1,5 +1,6 @@
 package pk.word.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,9 +49,14 @@ public class WordService {
 		return word.getWordSynonyms().stream().collect(Collectors.toList());
 	}
 
-	public List<Word> fetchAllSynonymsForWord(String wordText) {
+	public List<WordLight> fetchAllSynonymsForWord(String wordText) {
 		Word word = findWordByText(wordText);
-		return word.getWordSynonyms().stream().collect(Collectors.toList());
+		List<Word> wordList = word.getWordSynonyms().stream().collect(Collectors.toList());
+		List<WordLight> wordLiteList = new ArrayList<WordLight>(wordList.size());
+		wordList.forEach(eachWord -> {
+			wordLiteList.add(convertWordToWordLight(eachWord));
+		});
+		return wordLiteList;
 	}
 
 	public List<Word> fetchAllAntonymsForWordById(int wordId) {
