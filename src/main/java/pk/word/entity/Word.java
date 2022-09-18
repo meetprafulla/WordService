@@ -2,6 +2,7 @@ package pk.word.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -57,16 +58,16 @@ public class Word {
 	@JoinColumn(name = "WORDTYPE_ID")
 	private WordType wordtype;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "WORD_SYNONYMS", joinColumns = { @JoinColumn(name = "WORD_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "SYNONYM_ID") })
 	private Set<Word> wordSynonyms;
-	
-	@OneToMany(fetch = FetchType.EAGER)
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "WORD_ID")
 	private Set<WordSentences> wordSentences;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "WORD_ANTONYMS", joinColumns = { @JoinColumn(name = "WORD_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "ANTONYM_ID") })
 	private Set<Word> wordAntonyms;
