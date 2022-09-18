@@ -11,9 +11,12 @@ import pk.word.entity.Word;
 
 @Repository
 public interface WordRepository extends JpaRepository<Word, Integer> {
+	
 	Word findByWordText(String wordText);
 	
 	@Query(value = "SELECT w FROM Word w  WHERE w.wordText LIKE %:searchTerm% ORDER BY wordText")
 	List<Word> findWordWithSearchText(@Param("searchTerm") String searchTerm);
+	
+	List<Word> findByWordIdIn(List<Integer> wordIds);
 	
 }
